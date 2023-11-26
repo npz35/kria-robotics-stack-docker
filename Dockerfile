@@ -114,11 +114,11 @@ RUN cd ${HOME}/krs_ws && \
 RUN cd ${HOME}/krs_ws && \
     XSA_PATH="${HOME}/krs_workdir_2023_1/kv260_hardware_platform.xsa" && \
     CFG_PLATFORM_PATH=`echo $XSA_PATH | sed 's/\\//\\\\\\//g'` && \
-    find src -name kv260.cfg | xargs sed -i "s/platform=kv260_custom_platform/platform=${CFG_PLATFORM_PATH}/g"
+    find src -name 'kv260*.cfg' | xargs sed -i "s/platform=kv260_custom_platform/platform=${CFG_PLATFORM_PATH}/g"
 
 ARG VPP_PARALLEL
 RUN cd ${HOME}/krs_ws && \
-    find src -name kv260.cfg | \
+    find src -name 'kv260*.cfg' | \
         xargs -I{} sh -c 'echo "\n[vivado]\nsynth.jobs=${VPP_PARALLEL}\nimpl.jobs=${VPP_PARALLEL}\n\n[hls]\njobs=${VPP_PARALLEL}\n" >> {}'
 
 RUN cd ${HOME}/krs_ws && \
